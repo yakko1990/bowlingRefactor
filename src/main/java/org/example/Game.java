@@ -17,7 +17,6 @@ public class Game {
         for (char pin: pins) {
             score += Character.getNumericValue(pin);
         }
-
         return score;
     }
 }
