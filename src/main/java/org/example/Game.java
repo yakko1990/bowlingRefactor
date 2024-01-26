@@ -3,7 +3,11 @@ package org.example;
 public class Game {
     private String pins;
 
-    public Game(String pins){
+
+    public Game(){
+        this.pins = "";
+    }
+   public Game(String pins){
         this.pins = pins;
     }
 
@@ -11,7 +15,6 @@ public class Game {
         char[] pins = this.pins.toCharArray();
         int score = 0;
         for (char pin: pins) {
-
             score += Character.getNumericValue(pin);
         }
 
