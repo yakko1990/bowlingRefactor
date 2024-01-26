@@ -25,6 +25,12 @@ public class AppTest extends TestCase {
         Game game = new Game(pins);
         assertEquals(155, game.getScore());
     }
+    public void testWithStrikesGame(){
+        String pins = "5-5-5-5-5-X5-5-5-5-";
+
+        Game game = new Game(pins);
+        assertEquals(65, game.getScore());
+    }
     public void testPerfectGame(){
 
         String pins = "XXXXXXXXXXXX";

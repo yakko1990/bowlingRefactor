@@ -22,9 +22,17 @@ public class Game {
         for (char pin: pins) {
             if(pin!='-'){
                 if(pin == '/'){
+                    int nextBall = (pins[cont+1]!='-')?Character.getNumericValue(pins[cont+1]):0;
                     score-= Character.getNumericValue(pins[cont-1]);
-                    score+= 10+Character.getNumericValue(pins[cont+1]);
-                }else {
+                    score+= 10 + nextBall;
+                }else if(pin == 'X') {
+
+                    int nextBall = (pins[cont+1]!='-')?Character.getNumericValue(pins[cont+1]):0;
+                    int nextBall2 = (pins[cont+2]!='-')?Character.getNumericValue(pins[cont+1]):0;
+
+                    score = 10 + nextBall + nextBall2;
+
+                }else{
                     score += Character.getNumericValue(pin);
                 }
             }
