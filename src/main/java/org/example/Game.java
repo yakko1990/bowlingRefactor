@@ -14,10 +14,19 @@ public class Game {
     public int getScore(){
         char[] pins = this.pins.toCharArray();
         int score = 0;
+        if(computePerfectGame(this.pins)){
+            return 300;
+        }
         for (char pin: pins) {
-            score += Character.getNumericValue(pin);
+            if(pin!='-'){
+                score += Character.getNumericValue(pin);
+            }
         }
         return score;
+    }
+
+    private boolean computePerfectGame(String pins){
+        return pins.equals("XXXXXXXXXXXX");
     }
 }
 
