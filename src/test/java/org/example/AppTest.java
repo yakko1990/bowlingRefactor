@@ -18,6 +18,13 @@ public class AppTest extends TestCase {
         Game game = new Game(pins);
         assertEquals(90, game.getScore());
     }
+
+    public void testSpareEveryFrameGame(){
+        String pins = "5/5/5/5/5/5/5/5/5/5/5";
+
+        Game game = new Game(pins);
+        assertEquals(155, game.getScore());
+    }
     public void testPerfectGame(){
 
         String pins = "XXXXXXXXXXXX";

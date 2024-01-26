@@ -14,14 +14,23 @@ public class Game {
     public int getScore(){
         char[] pins = this.pins.toCharArray();
         int score = 0;
+
         if(computePerfectGame(this.pins)){
             return 300;
         }
+        int cont = 0;
         for (char pin: pins) {
             if(pin!='-'){
-                score += Character.getNumericValue(pin);
+                if(pin == '/'){
+                    score-= Character.getNumericValue(pins[cont-1]);
+                    score+= 10+Character.getNumericValue(pins[cont+1]);
+                }else {
+                    score += Character.getNumericValue(pin);
+                }
             }
+            cont++;
         }
+
         return score;
     }
 
