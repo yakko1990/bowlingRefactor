@@ -24,12 +24,19 @@ public class AppTest {
         Game game = new Game(pins);
         assertEquals(155, game.getScore());
     }
-    @Disabled
+    @Test
     public void testWithStrikesGame(){
         String pins = "5-5-5-5-5-X5-5-5-5-";
 
         Game game = new Game(pins);
-        assertEquals(65, game.getScore());
+        assertEquals(60, game.getScore());
+    }
+
+    @Test
+    public void testTwoStrikesInARowGame(){
+        String pins = "5-5-5-5-5-XX5-5-5-";
+        Game game = new Game(pins);
+        assertEquals(60, game.getScore());
     }
     @Test
     public void testPerfectGame(){

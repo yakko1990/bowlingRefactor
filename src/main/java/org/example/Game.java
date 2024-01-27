@@ -22,18 +22,16 @@ public class Game {
         for (char pin: pins) {
             if(pin!='-'){
                 if(pin == '/'){
-                    int nextBall = (pins[cont+1]!='-')?Character.getNumericValue(pins[cont+1]):0;
-                    score-= Character.getNumericValue(pins[cont-1]);
+                    int nextBall = valueNextBall(pins, cont, 1);
+                    score-= valuePreviusBall(pins, cont, 1);
                     score+= 10 + nextBall;
                 }else if(pin == 'X') {
 
-                    int nextBall = (pins[cont+1]!='-')?Character.getNumericValue(pins[cont+1]):0;
-                    int nextBall2 = (pins[cont+2]!='-')?Character.getNumericValue(pins[cont+1]):0;
-
-                    score = 10 + nextBall + nextBall2;
-
+                    int nextBall = valueNextBall(pins, cont, 1);
+                    int nextBall2 = valueNextBall(pins, cont, 2);
+                    score += 10 + nextBall + nextBall2;
                 }else{
-                    score += Character.getNumericValue(pin);
+                    score += pinToNumber(pin);
                 }
             }
             cont++;
@@ -42,6 +40,16 @@ public class Game {
         return score;
     }
 
+    private int pinToNumber(char pin){
+        return Character.getNumericValue(pin);
+    }
+    private int valueNextBall(char[] pins, int cont, int position){
+        return (pins[cont+position]!='-')?Character.getNumericValue(pins[cont+position]):0;
+    }
+
+    private int valuePreviusBall(char[]pins, int cont, int position){
+        return Character.getNumericValue(pins[cont-position]);
+    }
     private boolean computePerfectGame(String pins){
         return pins.equals("XXXXXXXXXXXX");
     }
