@@ -22,10 +22,10 @@ public class AppTest {
         String pins = "5/5/5/5/5/5/5/5/5/5/5";
 
         Game game = new Game(pins);
-        assertEquals(155, game.getScore());
+        assertEquals(150, game.getScore());
     }
     @Test
-    public void testWithStrikesGame(){
+    public void testWithStrikeGame(){
         String pins = "5-5-5-5-5-X5-5-5-5-";
 
         Game game = new Game(pins);
@@ -36,7 +36,7 @@ public class AppTest {
     public void testTwoStrikesInARowGame(){
         String pins = "5-5-5-5-5-XX5-5-5-";
         Game game = new Game(pins);
-        assertEquals(60, game.getScore());
+        assertEquals(80, game.getScore());
     }
     @Test
     public void testPerfectGame(){
