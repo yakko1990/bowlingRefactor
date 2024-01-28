@@ -45,16 +45,16 @@ public class Game {
         return score;
     }
     private int strikeBonus(char[] rolls, int currentTurn, int score ){
-        char nextball1 = rolls[currentTurn+1];
-        char nextball2 = rolls[currentTurn+2];
-        char nextball3 = rolls[currentTurn+3];
+        char nextBall1 = rolls[currentTurn+1];
+        char nextBall2 = rolls[currentTurn+2];
+        char nextBall3 = rolls[currentTurn+3];
 
-        if(nextball3 == '/'){
+        if(nextBall3 == '/'|| nextBall1 =='X' && nextBall2 =='X'){
             score += 10 + 10 + 10;
-        } else if (nextball1 =='X' && nextball2 !='X') {
-            score += 10 + 10 + pinsToNumber(nextball2);
-        }else {
-            score+= 10 + 10 + 10;
+        } else if (nextBall1 =='X') {
+            score += 10 + 10 + pinsToNumber(nextBall2);
+        }else{
+            score += 10 + pinsToNumber(nextBall1) + pinsToNumber(nextBall2);
         }
         return score;
     }

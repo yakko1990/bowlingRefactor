@@ -39,7 +39,7 @@ public class AppTest {
         assertEquals(80, game.getScore());
     }
 
-    @Disabled
+    @Test
     public void testTwoStrikesThenSpareGame(){
         String pins = "5-5-5-5-5-XX5/5-5-";
         Game game = new Game(pins);
