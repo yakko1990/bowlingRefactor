@@ -20,14 +20,12 @@ public class AppTest {
     @Test
     public void testSpareEveryFrameGame(){
         String pins = "5/5/5/5/5/5/5/5/5/5/5";
-
         Game game = new Game(pins);
         assertEquals(150, game.getScore());
     }
     @Test
     public void testWithStrikeGame(){
         String pins = "5-5-5-5-5-X5-5-5-5-";
-
         Game game = new Game(pins);
         assertEquals(60, game.getScore());
     }
@@ -43,15 +41,15 @@ public class AppTest {
     public void testTwoStrikesThenSpareGame(){
         String pins = "5-5-5-5-5-XX5/5-5-";
         Game game = new Game(pins);
-        assertEquals(100, game.getScore());
+        assertEquals(95, game.getScore());
     }
-    @Disabled
+    @Test
     public void testTwoStrikesOneSpareGame(){
         String pins = "5-5-5-5-5-XX5-5-5/5";
         Game game = new Game(pins);
         assertEquals(90, game.getScore());
     }
-    @Disabled
+    @Test
     public void testComplexGame(){
         String pins = "XXX728/-9X7/9-XX8";
         Game game = new Game(pins);

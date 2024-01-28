@@ -19,19 +19,24 @@ public class Game {
         int turn = 0; // pueden variar entre 12 y 21
         int frame = 0; // 10 como maximo
 
-        for (char roll: rolls) {
-            if(turn < 20){
+        for (char roll:rolls) {
+            if(frame < 10){
                 if(roll == '/'){
                     score = spareBonus(rolls, turn, score);
+                    frame++;
                 }else if(roll == 'X') {
                     score = strikeBonus(rolls, turn, score);
+                    frame++;
                 }else{
                     score += pinsToNumber(roll);
                 }
             }
+            if (frame == 10) {
+                score = lastFrame(rolls, turn, score);
+                frame++;
+            }
             turn++;
         }
-
         return score;
     }
 
@@ -44,17 +49,31 @@ public class Game {
         score += 10 + pinsToNumber(rolls[currentTurn + 1]);
         return score;
     }
-    private int strikeBonus(char[] rolls, int currentTurn, int score ){
+    private int strikeBonus(char[] rolls, int currentTurn, int score){
         char nextBall1 = rolls[currentTurn+1];
         char nextBall2 = rolls[currentTurn+2];
-        char nextBall3 = rolls[currentTurn+3];
 
-        if(nextBall3 == '/'|| nextBall1 =='X' && nextBall2 =='X'){
+        if(nextBall1 =='X' && nextBall2 =='X'){
             score += 10 + 10 + 10;
-        } else if (nextBall1 =='X') {
+        } else if (nextBall1 == 'X') {
             score += 10 + 10 + pinsToNumber(nextBall2);
-        }else{
+        } else if (nextBall2 == '/'){
+            score += 10 + 10;
+        } else{
             score += 10 + pinsToNumber(nextBall1) + pinsToNumber(nextBall2);
+        }
+        return score;
+    }
+    private int lastFrame(char[] rolls, int currentTurn, int score){
+        char ball1 = rolls[currentTurn];
+        char ball2 = rolls[currentTurn+1];
+
+        if (ball1 == 'X') {
+            score = strikeBonus(rolls, currentTurn, score);
+        } else if (ball2 =='/') {
+            score = spareBonus(rolls, currentTurn, score);
+        }else{
+            score += pinsToNumber(ball1) + pinsToNumber(ball2);
         }
         return score;
     }
