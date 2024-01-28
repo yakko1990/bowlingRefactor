@@ -24,18 +24,9 @@ public class Game {
                 if(roll == '/'){
                     score = spareBonus(rolls, turn, score);
                 }else if(roll == 'X') {
-
-                    int nextBall = valueNextBall(rolls, turn, 1);
-                    int nextBall2 = valueNextBall(rolls, turn, 2);
-
-                    if(nextBall < 10 && nextBall2 == 10){
-                        score += 10 + nextBall2;
-                    }else {
-                        score += 10 + nextBall + nextBall2;
-                    }
-
+                    score = strikeBonus(rolls, turn, score);
                 }else{
-                    score += pinToNumber(roll);
+                    score += pinsToNumber(roll);
                 }
             }
             turn++;
@@ -44,28 +35,28 @@ public class Game {
         return score;
     }
 
-    private int pinToNumber(char roll){
+    private int pinsToNumber(char roll){
         return Character.getNumericValue(roll);
     }
 
-    private int spareBonus(char rolls[], int currentTurn, int score){
-        score -= Character.getNumericValue(rolls[currentTurn - 1]);
-        score+= 10 + Character.getNumericValue(rolls[currentTurn + 1]);
+    private int spareBonus(char[] rolls, int currentTurn, int score){
+        score -= pinsToNumber(rolls[currentTurn - 1]);
+        score += 10 + pinsToNumber(rolls[currentTurn + 1]);
         return score;
     }
-    private int valueNextBall(char[] rolls, int currentTurn, int nexTurn){
-        int valueNextBall = 0;
+    private int strikeBonus(char[] rolls, int currentTurn, int score ){
+        char nextball1 = rolls[currentTurn+1];
+        char nextball2 = rolls[currentTurn+2];
+        char nextball3 = rolls[currentTurn+3];
 
-        if(rolls[currentTurn+nexTurn]=='X' || rolls[currentTurn+nexTurn]=='/'){
-            valueNextBall = 10;
-        }else{
-            valueNextBall = Character.getNumericValue(rolls[currentTurn+nexTurn]);
+        if(nextball3 == '/'){
+            score += 10 + 10 + 10;
+        } else if (nextball1 =='X' && nextball2 !='X') {
+            score += 10 + 10 + pinsToNumber(nextball2);
+        }else {
+            score+= 10 + 10 + 10;
         }
-        return valueNextBall;
-    }
-
-    private int valuePreviousBall(char[]rolls, int currentTurn, int previousTurn){
-        return Character.getNumericValue(rolls[currentTurn-previousTurn]);
+        return score;
     }
     private boolean computePerfectGame(String rolls){
         return rolls.equals("XXXXXXXXXXXX");
