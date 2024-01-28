@@ -16,16 +16,16 @@ public class Game {
         if(computePerfectGame(this.rolls)){
             return 300;
         }
-        int turn = 0;
-        int frame = 10;
-        for (char pin: rolls) {
+        int turn = 0; // pueden variar entre 12 y 21
+        int frame = 0; //10 como maximo
+        for (char roll: rolls) {
             if(turn < 20){
-                if(pin == '/'){
+                if(roll == '/'){
                     int nextBall = valueNextBall(rolls, turn, 1);
                     score-= valuePreviousBall(rolls, turn, 1);
                     score+= 10 + nextBall;
 
-                }else if(pin == 'X') {
+                }else if(roll == 'X') {
 
                     int nextBall = valueNextBall(rolls, turn, 1);
                     int nextBall2 = valueNextBall(rolls, turn, 2);
@@ -37,7 +37,7 @@ public class Game {
                     }
 
                 }else{
-                    score += pinToNumber(pin);
+                    score += pinToNumber(roll);
                 }
             }
             turn++;
