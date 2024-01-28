@@ -17,14 +17,12 @@ public class Game {
             return 300;
         }
         int turn = 0; // pueden variar entre 12 y 21
-        int frame = 0; //10 como maximo
+        int frame = 0; // 10 como maximo
+
         for (char roll: rolls) {
             if(turn < 20){
                 if(roll == '/'){
-                    int nextBall = valueNextBall(rolls, turn, 1);
-                    score-= valuePreviousBall(rolls, turn, 1);
-                    score+= 10 + nextBall;
-
+                    score = spareBonus(rolls, turn, score);
                 }else if(roll == 'X') {
 
                     int nextBall = valueNextBall(rolls, turn, 1);
@@ -48,6 +46,12 @@ public class Game {
 
     private int pinToNumber(char roll){
         return Character.getNumericValue(roll);
+    }
+
+    private int spareBonus(char rolls[], int currentTurn, int score){
+        score -= Character.getNumericValue(rolls[currentTurn - 1]);
+        score+= 10 + Character.getNumericValue(rolls[currentTurn + 1]);
+        return score;
     }
     private int valueNextBall(char[] rolls, int currentTurn, int nexTurn){
         int valueNextBall = 0;
