@@ -1,67 +1,72 @@
 package org.example;
 
 public class Game {
-    private String pins;
+    private String rolls;
     public Game(){
-        this.pins = "";
+        this.rolls = "";
     }
-    public Game(String pins){
-        this.pins = pins;
+    public Game(String rolls){
+        this.rolls = rolls.replace('-','0');
     }
 
     public int getScore(){
-        char[] pins = this.pins.toCharArray();
+        char[] rolls = this.rolls.toCharArray();
         int score = 0;
 
-        if(computePerfectGame(this.pins)){
+        if(computePerfectGame(this.rolls)){
             return 300;
         }
-        int cont = 0;
-        for (char pin: pins) {
-            if(pin!='-' && cont < 20){
+        int turn = 0;
+        int frame = 10;
+        for (char pin: rolls) {
+            if(pin!='-' && turn < 20){
                 if(pin == '/'){
-                    int nextBall = valueNextBall(pins, cont, 1);
-                    score-= valuePreviousBall(pins, cont, 1);
+                    int nextBall = valueNextBall(rolls, turn, 1);
+                    score-= valuePreviousBall(rolls, turn, 1);
                     score+= 10 + nextBall;
 
                 }else if(pin == 'X') {
 
-                    int nextBall = valueNextBall(pins, cont, 1);
-                    int nextBall2 = valueNextBall(pins, cont, 2);
+                    int nextBall = valueNextBall(rolls, turn, 1);
+                    int nextBall2 = valueNextBall(rolls, turn, 2);
 
-                    score += 10 + nextBall + nextBall2;
+                    if(nextBall < 10 && nextBall2 == 10){
+                        score += 10 + nextBall2;
+                    }else {
+                        score += 10 + nextBall + nextBall2;
+                    }
 
                 }else{
                     score += pinToNumber(pin);
                 }
             }
-            cont++;
+            turn++;
         }
 
         return score;
     }
 
-    private int pinToNumber(char pin){
-        return Character.getNumericValue(pin);
+    private int pinToNumber(char roll){
+        return Character.getNumericValue(roll);
     }
-    private int valueNextBall(char[] pins, int cont, int position){
+    private int valueNextBall(char[] rolls, int currentTurn, int nexTurn){
         int valueNextBall = 0;
 
-        if(pins[cont+position]=='X' || pins[cont+position]=='/'){
+        if(rolls[currentTurn+nexTurn]=='X' || rolls[currentTurn+nexTurn]=='/'){
             valueNextBall = 10;
-        }else if(pins[cont+position]=='-'){
+        }else if(rolls[currentTurn+nexTurn]=='-'){
             valueNextBall = 0;
         }else{
-            valueNextBall = Character.getNumericValue(pins[cont+position]);
+            valueNextBall = Character.getNumericValue(rolls[currentTurn+nexTurn]);
         }
         return valueNextBall;
     }
 
-    private int valuePreviousBall(char[]pins, int cont, int position){
-        return Character.getNumericValue(pins[cont-position]);
+    private int valuePreviousBall(char[]rolls, int currentTurn, int previousTurn){
+        return Character.getNumericValue(rolls[currentTurn-previousTurn]);
     }
-    private boolean computePerfectGame(String pins){
-        return pins.equals("XXXXXXXXXXXX");
+    private boolean computePerfectGame(String rolls){
+        return rolls.equals("XXXXXXXXXXXX");
     }
 }
 
