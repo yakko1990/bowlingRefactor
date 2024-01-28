@@ -19,7 +19,7 @@ public class Game {
         int turn = 0;
         int frame = 10;
         for (char pin: rolls) {
-            if(pin!='-' && turn < 20){
+            if(turn < 20){
                 if(pin == '/'){
                     int nextBall = valueNextBall(rolls, turn, 1);
                     score-= valuePreviousBall(rolls, turn, 1);
@@ -54,8 +54,6 @@ public class Game {
 
         if(rolls[currentTurn+nexTurn]=='X' || rolls[currentTurn+nexTurn]=='/'){
             valueNextBall = 10;
-        }else if(rolls[currentTurn+nexTurn]=='-'){
-            valueNextBall = 0;
         }else{
             valueNextBall = Character.getNumericValue(rolls[currentTurn+nexTurn]);
         }

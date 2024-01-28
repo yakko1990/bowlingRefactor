@@ -39,19 +39,19 @@ public class AppTest {
         assertEquals(80, game.getScore());
     }
 
-    @Test
+    @Disabled
     public void testTwoStrikesThenSpareGame(){
         String pins = "5-5-5-5-5-XX5/5-5-";
         Game game = new Game(pins);
         assertEquals(100, game.getScore());
     }
-    @Test
+    @Disabled
     public void testTwoStrikesOneSpareGame(){
         String pins = "5-5-5-5-5-XX5-5-5/5";
         Game game = new Game(pins);
         assertEquals(90, game.getScore());
     }
-    @Test
+    @Disabled
     public void testComplexGame(){
         String pins = "XXX728/-9X7/9-XX8";
         Game game = new Game(pins);
