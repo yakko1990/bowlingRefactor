@@ -14,26 +14,24 @@ public class Game {
         int score = 0;
 
         int turn = 0; // pueden variar entre 12 y 21
-        int frame = 0; // 10 como maximo
+        int frame = 0; // 19 como maximo
 
-        for (char roll:rolls) {
-            if(frame < 10){
-                if(roll == '/'){
+        while(frame < 18) {
+            if(rolls[turn] == '/'){
                     score = spareBonus(rolls, turn, score);
                     frame++;
-                }else if(roll == 'X') {
+            }else if(rolls[turn] == 'X') {
                     score = strikeBonus(rolls, turn, score);
+                    frame+=2;
+            }else{
+                    score += pinsToNumber(rolls[turn]);
                     frame++;
-                }else{
-                    score += pinsToNumber(roll);
-                }
-            }
-            if (frame == 10) {
-                score = lastFrame(rolls, turn, score);
-                frame++;
             }
             turn++;
         }
+
+        score = lastFrame(rolls, turn, score);
+
         return score;
     }
 
@@ -68,7 +66,8 @@ public class Game {
         if (ball1 == 'X') {
             score = strikeBonus(rolls, currentTurn, score);
         } else if (ball2 =='/') {
-            score = spareBonus(rolls, currentTurn, score);
+            score+=pinsToNumber(ball1);
+            score = spareBonus(rolls, currentTurn+1, score);
         }else{
             score += pinsToNumber(ball1) + pinsToNumber(ball2);
         }
