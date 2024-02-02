@@ -13,9 +13,6 @@ public class Game {
         char[] rolls = this.rolls.toCharArray();
         int score = 0;
 
-        if(computePerfectGame(this.rolls)){
-            return 300;
-        }
         int turn = 0; // pueden variar entre 12 y 21
         int frame = 0; // 10 como maximo
 
@@ -76,9 +73,6 @@ public class Game {
             score += pinsToNumber(ball1) + pinsToNumber(ball2);
         }
         return score;
-    }
-    private boolean computePerfectGame(String rolls){
-        return rolls.equals("XXXXXXXXXXXX");
     }
 }
 
