@@ -13,27 +13,25 @@ public class Game {
         char[] rolls = this.rolls.toCharArray();
         int score = 0;
 
-        if(computePerfectGame(this.rolls)){
-            return 300;
-        }
         int turn = 0; // pueden variar entre 12 y 21
-        int frame = 1; // 10 como maximo
+        int frame = 0; // 19 como maximo
 
-        for (char roll:rolls) {
-            if(frame < 10){
-                if(roll == '/'){
+        while(frame < 18) {
+            if(rolls[turn] == '/'){
                     score = spareBonus(rolls, turn, score);
-                }else if(roll == 'X') {
+                    frame++;
+            }else if(rolls[turn] == 'X') {
                     score = strikeBonus(rolls, turn, score);
-                }else{
-                    score += pinsToNumber(roll);
-                }
-            }
-            if (frame == 10) {
-                score = lastFrame(rolls, turn, score);
+                    frame+=2;
+            }else{
+                    score += pinsToNumber(rolls[turn]);
+                    frame++;
             }
             turn++;
         }
+
+        score = lastFrame(rolls, turn, score);
+
         return score;
     }
 
@@ -68,14 +66,12 @@ public class Game {
         if (ball1 == 'X') {
             score = strikeBonus(rolls, currentTurn, score);
         } else if (ball2 =='/') {
-            score = spareBonus(rolls, currentTurn, score);
+            score+=pinsToNumber(ball1);
+            score = spareBonus(rolls, currentTurn+1, score);
         }else{
             score += pinsToNumber(ball1) + pinsToNumber(ball2);
         }
         return score;
-    }
-    private boolean computePerfectGame(String rolls){
-        return rolls.equals("XXXXXXXXXXXX");
     }
 }
 
