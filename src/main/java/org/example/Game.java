@@ -2,6 +2,8 @@ package org.example;
 
 public class Game {
     private String rolls;
+    private int strikeValue = 10;
+    private int spareValue = 10;
     public Game(){
         this.rolls = "";
     }
@@ -41,7 +43,7 @@ public class Game {
 
     private int spareBonus(char[] rolls, int currentTurn, int score){
         score -= pinsToNumber(rolls[currentTurn - 1]);
-        score += 10 + pinsToNumber(rolls[currentTurn + 1]);
+        score += spareValue + pinsToNumber(rolls[currentTurn + 1]);
         return score;
     }
     private int strikeBonus(char[] rolls, int currentTurn, int score){
@@ -49,13 +51,13 @@ public class Game {
         char nextBall2 = rolls[currentTurn+2];
 
         if(nextBall1 =='X' && nextBall2 =='X'){
-            score += 10 + 10 + 10;
+            score += strikeValue*3;
         } else if (nextBall1 == 'X') {
-            score += 10 + 10 + pinsToNumber(nextBall2);
+            score += strikeValue*2 + pinsToNumber(nextBall2);
         } else if (nextBall2 == '/'){
-            score += 10 + 10;
+            score += strikeValue + spareValue;
         } else{
-            score += 10 + pinsToNumber(nextBall1) + pinsToNumber(nextBall2);
+            score += strikeValue + pinsToNumber(nextBall1) + pinsToNumber(nextBall2);
         }
         return score;
     }
