@@ -17,23 +17,20 @@ public class Game {
             return 300;
         }
         int turn = 0; // pueden variar entre 12 y 21
-        int frame = 0; // 10 como maximo
+        int frame = 1; // 10 como maximo
 
         for (char roll:rolls) {
             if(frame < 10){
                 if(roll == '/'){
                     score = spareBonus(rolls, turn, score);
-                    frame++;
                 }else if(roll == 'X') {
                     score = strikeBonus(rolls, turn, score);
-                    frame++;
                 }else{
                     score += pinsToNumber(roll);
                 }
             }
             if (frame == 10) {
                 score = lastFrame(rolls, turn, score);
-                frame++;
             }
             turn++;
         }
