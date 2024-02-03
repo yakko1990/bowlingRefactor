@@ -1,4 +1,4 @@
-# Kata Bowling refactorizado utilizando TDD
+# Kata Bowling resuelto utilizando TDD.
 
 ## I. Lógica del juego
 
@@ -68,10 +68,38 @@ Este es un resumen de las reglas del juego:
 
   # III. Caracteristicas de la aplicación:
 
-  La aplicación tiene una única clase Game que encapsula la lógica en diferentes métodos. El input de la aplicación es un String de caractéres y la lógica se se basa en iterar sobre dicho String sumando los punto y gestionando las excepciones (Strikes y Spares).
+  La aplicación tiene una única clase `Game` que encapsula la lógica en diferentes métodos. El input de la aplicación es un String de caractéres y la lógica se basa en iterar sobre dicho String sumando los punto y gestionando las excepciones (Strikes y Spares).
 
-  *Nota*: Todas las funciones (salvo **pinsToNumber**) reciben como parámetros el String que contiene las jugadas de la partida, el turno que se tiene que sumar y la puntuación calculada hasta ese momento. La lógica de como se gestionan estas funciones esta en em método **getScore** de la clase `Game`.
+  *Nota*: Todas las funciones (salvo **pinsToNumber**) reciben como parámetros el String que contiene las jugadas de la partida `rolls`, el turno que se tiene que sumar `currentTurn` y la puntuación calculada hasta ese momento `score`. La lógica de como se gestionan estas funciones esta en em método **getScore** de la clase `Game`.
 
+  ***getScore*** función principal de la clase `Game` para calcular la puntuación de la partida.
+  ```java
+    public int getScore(){
+        char[] rolls = this.rolls.toCharArray();
+        int score = 0;
+
+        int turn = 0; // pueden variar entre 12 y 21
+        int frame = 0; // 19 como maximo
+
+        while(frame < 18) {
+            if(rolls[turn] == '/'){
+                    score = spareBonus(rolls, turn, score);
+                    frame++;
+            }else if(rolls[turn] == 'X') {
+                    score = strikeBonus(rolls, turn, score);
+                    frame+=2;
+            }else{
+                    score += pinsToNumber(rolls[turn]);
+                    frame++;
+            }
+            turn++;
+        }
+
+        score = lastFrame(rolls, turn, score);
+
+        return score;
+    }
+  ```
   **pinsToNumber()** es una función auxiliar que convierte el valor de un character numérico a un tipo int.
   ```java
     private int pinsToNumber(char roll){
