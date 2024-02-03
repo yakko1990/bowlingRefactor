@@ -20,49 +20,48 @@ Este es un resumen de las reglas del juego:
 
 ## II. Test sugeridos para desarrollar la lógica.
 
-  testNormalScore:
+  **testNormalScore:**
   `12345123451234512345`
 
   Partida normal donde unicamente hay que sumar los bolos derribados en cada tirada. `Puntuación: 60`.
 
-  testHeartBreakGame:
+  **testHeartBreakGame:**
   `9-9-9-9-9-9-9-9-9-9-`
   
   Partida donde se ha fallado una de cada 2 tiradas. El guión representa que se han tirado 0 bolos en esa tirada (turn). `Puntuación: 90`.
 
-  testSpareEveryFrameGame:
-
+  **testSpareEveryFrameGame:**
   `5/5/5/5/5/5/5/5/5/5/5`
 
   Partida donde se ha hecho un semipleno (Spare) en cada turno (frame). `Puntuación: 150`.
   
-  testWithStrikeGame:
+  **testWithStrikeGame:**
   `5-5-5-5-5-X5-5-5-5-`
   
   Partida donde se ha hecho un pleno (Strike) y se han fallado multiples tiradas(turns). `Puntuación: 60`.
 
-  testTwoStrikesInARowGame:
+  **testTwoStrikesInARowGame:**
   `5-5-5-5-5-XX5-5-5-`
 
   Partida donde se han hecho dos plenos (Strike) y se han fallado multiples tiradas(turns). `Puntuación: 80`.
 
-  testTwoStrikesThenSpareGame:
+  **testTwoStrikesThenSpareGame:**
   `5-5-5-5-5-XX5/5-5-`
 
   Partida donde se han hecho dos plenos (Strike) seguidos de un semipleno (Spare) y se han fallado multiples tiradas(turns). 
   `Puntuación: 95`.
 
-  testTwoStrikesOneSpareGame:
+  **testTwoStrikesOneSpareGame:**
   `5-5-5-5-5-XX5-5-5/5`
   
   Partida donde se han hecho dos plenos (Strike) y se termina la partida con un semipleno (Spare). También se han fallado multiples tiradas(turns).`Puntuación: 90`.
  
-  testComplexGame:
+  **testComplexGame:**
   `XXX728/-9X7/9-XX8`
 
   Partida compleja donde se han hecho partidas de todo tipo.`Puntuación: 180`.
   
-  testPerfectGame:
+  **testPerfectGame:**
   `XXXXXXXXXXXX`
 
   Partida perfecta donde se han conseguido 12 plenos (Strikes) seguidos.`Puntuación: 300`.
@@ -74,13 +73,13 @@ Este es un resumen de las reglas del juego:
   *Nota*: Todas las funciones (salvo **pinsToNumber**) reciben como parámetros el String que contiene las jugadas de la partida, el turno que se tiene que sumar y la puntuación calculada hasta ese momento. La lógica de como se gestionan estas funciones esta en em método **getScore** de la clase `Game`.
 
   **pinsToNumber()** es una función auxiliar que convierte el valor de un character numérico a un tipo int.
-  ```
+  ```java
     private int pinsToNumber(char roll){
         return Character.getNumericValue(roll);
     }
   ```
   **spareBonus()** función que calcula el bonus de un semipleno. Se resta los bolos tirados en la tirada anterior (turn) y se suman 10 más los bolos de la siguiente tirada (turn).
-  ```
+  ```java
     private int spareBonus(char[] rolls, int currentTurn, int score){
         score -= pinsToNumber(rolls[currentTurn - 1]);
         score += 10 + pinsToNumber(rolls[currentTurn + 1]);
@@ -88,7 +87,7 @@ Este es un resumen de las reglas del juego:
     }
   ```
   **strikeBonus()** función que calcula el bonus de un pleno. Se suman 10 y el valor de las dos tiradas (turns) siguintes. La lógica tiene en cuenta si en las dos siguientes tiradas hay plenos, semiplenos o son tiradas normales.
-  ```
+  ```java
      private int strikeBonus(char[] rolls, int currentTurn, int score){
         char nextBall1 = rolls[currentTurn+1];
         char nextBall2 = rolls[currentTurn+2];
@@ -107,7 +106,7 @@ Este es un resumen de las reglas del juego:
 
   ```
   **lastFrame()** Función que calcula la puntuación en el último turno (frame) donde puede haber 2 o 3 tiradas (turns) en función de lo bien que juegue el jugados.
-  ```
+  ```java
     private int lastFrame(char[] rolls, int currentTurn, int score){
         char ball1 = rolls[currentTurn];
         char ball2 = rolls[currentTurn+1];
