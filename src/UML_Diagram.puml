@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+App ---> Game
+
+class App{
+{static}+main(args:String[]):void
+}
+
+class Game{
+    - rolls: String
+    - strikeValue: int
+    - spareValue : int
+    --
+    + Game()
+    + getScore(): int
+    - pinsToNumber(roll:char): int
+    - spareBonus(rolls:char[], currentTurn:int, score:int): int
+    - strikeBonus(rolls:char[], currentTurn:int, score:int): int
+    - lastFrame(rolls:char[], currentTurn:int, score:int): int
+
+ }
+@enduml
