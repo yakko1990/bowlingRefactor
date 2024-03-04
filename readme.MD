@@ -72,7 +72,7 @@ Este es un resumen de las reglas del juego:
 
   *Nota*: Todas las funciones (salvo **pinsToNumber**) reciben como parámetros el String que contiene las jugadas de la partida `rolls`, el turno que se tiene que sumar `currentTurn` y la puntuación calculada hasta ese momento `score`. La lógica de como se gestionan estas funciones esta en em método **getScore** de la clase `Game`.
 
-  ![UML diagram](./src/UML_Diagram.svg){style="display: block; margin: 0 auto"}
+  ![UML diagram](./src/UML_Diagram.svg)
 
   ***getScore*** función principal de la clase `Game` para calcular la puntuación de la partida.
   ```java
