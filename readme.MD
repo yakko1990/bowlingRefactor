@@ -1,6 +1,6 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 ![build](https://github.com/BreisOne/bowling-refactoring-kata/actions/workflows/build.yml/badge.svg)
-![tests](https://github.com/BreisOne/bowling-refactoring-kata/actions/workflows/tests.yml/badge.svg)
+![tests](https://github.com/BreisOne/bowling-refactoring-kata/actions/workflows/test.yml/badge.svg)
 
 # Kata Bowling resuelto utilizando TDD.
 
