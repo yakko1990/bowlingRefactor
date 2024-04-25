@@ -1,0 +1,48 @@
+name: Maven Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        java: [8, 11, 15]
+    
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ matrix.java }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ matrix.java }}
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Clean project
+      run: mvn -B clean
+
+    - name: Compile project
+      run: mvn -B compile
+
+    - name: Package project
+      run: mvn -B clean compile assembly:single
+    
+    - name: Run JAR and save output
+      run: |
+        java -jar ./target/bowlingRefactor-1.0-SNAPSHOT-jar-with-dependencies.jar > output.txt
+
+    - name: Upload JAR output artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-output-${{ matrix.os }}-${{ matrix.java }}
+        path: output.txt
