@@ -1,4 +1,4 @@
-name: Maven Build
+name: Build
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        java: [8, 11, 15]
+        java: [ 11, 17]
     
     runs-on: ${{ matrix.os }}
 
@@ -30,6 +30,9 @@ jobs:
 
     - name: Clean project
       run: mvn -B clean
+
+    - name: Install dependencies
+      run: mvn -B install
 
     - name: Compile project
       run: mvn -B compile
